@@ -12,12 +12,15 @@ function init() {
 
 function addButtonClicked() {
   let $input = $('#name');
-  let name = $input.val();
+  let nameStr = $input.val();
+  let nameArr = nameStr.split(',');
+  nameArr.map(name => {
+    let $li = createNameList(name);
+    let $list = $('#list');
+    $list.append($li);
+    addToStorage(name);
+  })
   $input.val('');
-
-  let $li = createNameList(name);
-  let $list = $('#list');
-  $list.append($li);
 
   // let color = $('#color').val();
   // let $li = $('<li>');
@@ -26,7 +29,6 @@ function addButtonClicked() {
   // let $list = $('#list');
   // $list.append($li);
 
-  addToStorage(name);
 }
 
 function createNameList(name) {
@@ -65,6 +67,7 @@ function pickOne() {
 }
 
 function pickTeam() {
+  $("#groupList").empty();
   let json = localStorage.studentNames;
   let studentNames = JSON.parse(json);
   let $teamInput = $('#teamNumber');
